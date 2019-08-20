@@ -90,40 +90,35 @@ function removeDuplicates(array, cb) {
 
     let duplicates = array.filter(item => isEquivalent(element, item));//find duplicates
 
-    //console.table(duplicates);
-
-      if(duplicates.length >= 2){//found one or more duplicates, lets delete them all
-        //console.table(duplicates);
+      if(duplicates.length >= 2){//found one or more duplicates, lets delete them
 
         duplicates.shift();//We want to keep one duplicate, so lets remove one so it doesn't get deleted from array
 
         //remove duplicates
-        duplicates.forEach(item => noDuplicates = noDuplicates.filter(i => i != item));//why is there no simple array.remove(object) method?! Using .filter instead
+        duplicates.forEach(item => noDuplicates = noDuplicates.filter(i => i != item));//why is there no simple array.remove(object) method?! Using .filter instead lol
       }
 
   });
-
-  console.table(noDuplicates);
 
   return cb(noDuplicates);
 
 }
 
-//Disclaimer: I copied this function from Google. Javascript doesn't have any easy way to check if an object
+//Disclaimer: I copied this function from Google. I've read through it and understand how it works though. Javascript doesn't have any way to check if an object
 //is equal based on the values it contains, so I grabbed this method for it. 
 function isEquivalent(object1, object2) {
   // Create arrays of property names
-  var aProps = Object.getOwnPropertyNames(object1);
-  var bProps = Object.getOwnPropertyNames(object2);
+  var object1Props = Object.getOwnPropertyNames(object1);
+  var object2Props = Object.getOwnPropertyNames(object2);
 
   // If number of properties is different,
   // objects are not equivalent
-  if (aProps.length != bProps.length) {
+  if (object1Props.length != object2Props.length) {
       return false;
   }
 
-  for (var i = 0; i < aProps.length; i++) {
-      var propName = aProps[i];
+  for (var i = 0; i < object1Props.length; i++) {
+      var propName = object1Props[i];
 
       // If values of same property are not equal,
       // objects are not equivalent
@@ -173,4 +168,4 @@ const runnersWithSomeDups = [
   { id: 50, first_name: "Shell", last_name: "Baine", email: "sbaine1d@intel.com", shirt_size: "M", company_name: "Gabtype", donation: 171 },
 ];
 
-removeDuplicates(runnersWithSomeDups, noDupsArray => console.table());
+removeDuplicates(runnersWithSomeDups, noDupsArray => console.table(noDupsArray));
